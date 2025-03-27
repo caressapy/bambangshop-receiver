@@ -86,4 +86,8 @@ This is the place for you to write reflections:
 
 #### Reflection Subscriber-1
 
+Dalam tutorial ini, kita menggunakan **RwLock<>** untuk mengelola akses terhadap vektor **Notification** agar tetap sinkron dalam lingkungan multi-threaded. **RwLock<>** memungkinkan banyak thread untuk membaca data secara bersamaan, sementara hanya satu thread yang boleh menulis dalam satu waktu. Jika kita menggunakan **Mutex<>**, setiap thread harus memperoleh lock sebelum membaca atau menulis, yang berarti bahkan operasi pembacaan pun bisa terhambat oleh thread lain yang sedang mengakses data. Hal ini dapat menyebabkan bottleneck yang mengurangi efisiensi sistem. Dengan **RwLock<>**, kita bisa memastikan bahwa proses pembacaan dapat dilakukan tanpa hambatan selama tidak ada thread lain yang sedang menulis.  
+
+Selain itu, dalam tutorial ini, kita menggunakan **lazy_static** untuk mendefinisikan **Vec** dan **DashMap** sebagai variabel **static**. Tidak seperti di Java, Rust tidak mengizinkan mutasi langsung terhadap variabel **static** karena berpotensi menyebabkan **race condition** dalam lingkungan multi-threaded. Rust mengutamakan **memory safety** dan menghindari kondisi balapan dengan menerapkan aturan kepemilikan yang ketat. Oleh karena itu, kita menggunakan **lazy_static** untuk memastikan bahwa variabel **static** dapat diinisialisasi secara aman dan digunakan dalam konteks multi-threading tanpa menyebabkan masalah konkurensi.
+
 #### Reflection Subscriber-2
